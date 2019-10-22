@@ -14,11 +14,11 @@ defmodule ExMachina.Ecto do
   """
   defmacro __using__(opts) do
     verify_ecto_dep()
-
+    insert_opts = Keyword.get(opts, :insert_opts) || []
     if repo = Keyword.get(opts, :repo) do
       quote do
         use ExMachina
-        use ExMachina.EctoStrategy, repo: unquote(repo)
+        use ExMachina.EctoStrategy, repo: unquote(repo), insert_opts: unquote(insert_opts)
 
         def params_for(factory_name, attrs \\ %{}) do
           ExMachina.Ecto.params_for(__MODULE__, factory_name, attrs)

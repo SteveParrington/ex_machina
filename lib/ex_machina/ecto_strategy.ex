@@ -12,10 +12,10 @@ defmodule ExMachina.EctoStrategy do
      #{inspect(record, limit: :infinity)}"
   end
 
-  def handle_insert(%{__meta__: %{__struct__: Ecto.Schema.Metadata}} = record, %{repo: repo}) do
+  def handle_insert(%{__meta__: %{__struct__: Ecto.Schema.Metadata}} = record, %{repo: repo, insert_opts: insert_opts}) do
     record
     |> cast
-    |> repo.insert!
+    |> repo.insert!(insert_opts)
   end
 
   def handle_insert(record, %{repo: _repo}) do
